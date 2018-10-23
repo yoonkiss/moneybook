@@ -1,6 +1,7 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.6.RELEASE'
+		springBootVersion = '1.4.1.RELEASE'
+		lombokVersion = '1.16.20'
 	}
 	repositories {
 		mavenCentral()
@@ -12,7 +13,9 @@ buildscript {
 
 apply plugin: 'java'
 apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
+//apply plugin: 'org.springframework.boot'
+apply plugin: 'spring-boot'
+
 apply plugin: 'io.spring.dependency-management'
 
 group = 'com.example.moneybook'
@@ -25,6 +28,63 @@ repositories {
 
 
 dependencies {
+	def querydslVersion = "4.1.4"
+	
 	implementation('org.springframework.boot:spring-boot-starter')
+	compile('org.springframework.boot:spring-boot-starter-web')
 	testImplementation('org.springframework.boot:spring-boot-starter-test')
+	compile('org.springframework.boot:spring-boot-starter-data-jpa')
+	//compile("org.postgresql:postgresql:9.2-1003-jdbc4")
+	runtime("org.postgresql:postgresql:42.2.2")
+	annotationProcessor("org.projectlombok:lombok:1.16.20")
+    compileOnly("org.projectlombok:lombok:1.16.20")
+    testCompileOnly("org.projectlombok:lombok:1.16.20")
+    
+    /**
+     * querydsl dependency
+     */
+    compile ("com.querydsl:querydsl-core:$querydslVersion")
+    compile ("com.querydsl:querydsl-apt:$querydslVersion")
+    compile ("com.querydsl:querydsl-jpa:$querydslVersion")
 }
+
+springBoot {
+    mainClass = "com.example.moneybook.MoneybookApplication"
+}
+
+def queryDslOutput = file("src/main/generated")
+
+sourceSets {
+    main {
+        java {
+            srcDir "src/main/generated"
+        }
+    }
+}
+
+clean {
+    delete queryDslOutput
+}
+
+task generateQueryDSL(type: JavaCompile, group: 'build') {
+    doFirst {
+        if (!queryDslOutput.exists()) {
+            logger.info("Creating `$queryDslOutput` directory")
+
+            if (!queryDslOutput.mkdirs()) {
+                throw new InvalidUserDataException("Unable to create `$queryDslOutput` directory")
+            }
+        }
+    }
+
+    source = sourceSets.main.java
+    classpath = configurations.compile
+    options.compilerArgs = [
+            "-proc:only",
+            "-processor",
+            "com.querydsl.apt.jpa.JPAAnnotationProcessor"
+    ]
+    destinationDir = queryDslOutput
+}
+
+compileTestJava.dependsOn(generateQueryDSL)

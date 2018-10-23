@@ -1,4 +1,4 @@
-package com.example.moneybook.moneybook;
+package com.example.moneybook;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
