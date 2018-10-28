@@ -33,8 +33,9 @@ public class RecordService {
     @Transactional
     public Record addRecord(RecordRequest request) {
         Record record = new Record();
+        record.setType(request.getType());
         record.setAmount(request.getAmount());
-        record.setBillingType(request.getBillingType());
+        record.setAccount(request.getAccount());
         record.setComments(request.getComments());
         record.setDescription(request.getDescription());
         record.setDivided(request.getDivided());
@@ -73,7 +74,8 @@ public class RecordService {
         Record record = recordsRepo.findOne(id);
 
         record.setAmount(request.getAmount());
-        record.setBillingType(request.getBillingType());
+        record.setType(request.getType());
+        record.setAccount(request.getAccount());
         record.setComments(request.getComments());
         record.setDescription(request.getDescription());
         record.setDivided(request.getDivided());

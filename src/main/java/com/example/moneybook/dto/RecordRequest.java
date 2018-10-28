@@ -1,18 +1,16 @@
 package com.example.moneybook.dto;
 
-import java.time.LocalTime;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import lombok.Data;
 
 @Data
 public class RecordRequest {
     private String userId;
 
+    private int type;
+
     private String description;
 
-    private int billingType;
+    private int account;
 
     private int cardId;
 

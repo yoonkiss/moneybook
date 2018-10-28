@@ -26,9 +26,11 @@ public class Record {
 
     private String userId;
 
+    private int type;
+
     private String description;
 
-    private int billingType;
+    private int account;
 
     @ManyToOne
     @JoinColumn(name="card_id") //mapping to FK, optional for card_credit_card_id

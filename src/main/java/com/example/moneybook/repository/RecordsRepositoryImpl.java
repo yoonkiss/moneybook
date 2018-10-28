@@ -45,6 +45,10 @@ public class RecordsRepositoryImpl extends QueryDslRepositorySupport implements 
 
         JPQLQuery<Record> query = from(record);
 
+        //JPQLQuery<Record> query = from(record).innerJoin(record.card).fetchJoin();
+        //.where(record.categoryId.eq(filter.get));
+        
+        
         if (filter.getRecordAt() != null) {
             LocalDate date = LocalDate.parse(filter.getRecordAt());
             query.where(record.recordAt.eq(date));

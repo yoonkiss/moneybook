@@ -27,5 +27,4 @@ INSERT INTO creadit_card (id, user_id, name, started_at, end_at, billing_at) VAL
 
 
 
---
-INSERT INTO public.records (id, amount, billing_type, category_id, comments, created_at, description, divided, record_at, user_id, card_id) VALUES (1, 6200, 1, 601, '..', '2018-10-23 18:09:53.225', 'sdsd', 1, '2018-10-21', 'yoonki', 1);
+---- INSERT INTO public.records (id, amount, billing_type, category_id, comments, created_at, description, divided, record_at, user_id, card_id) VALUES (1, 6200, 1, 601, '..', '2018-10-23 18:09:53.225', 'sdsd', 1, '2018-10-21', 'yoonki', 1);

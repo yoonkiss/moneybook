@@ -32,6 +32,8 @@ public class RecordsController {
     @RequestMapping(value = "/record", method = RequestMethod.POST, consumes = "application/json")
     public ResponseData addRecord(@RequestBody RecordRequest record, HttpServletResponse http)
             throws MoneyBookException {
+     // TODO:!!
+        record.setUserId("yoonki");
         Record newRecord = recordsService.addRecord(record);
 
         return new ResponseData(newRecord);

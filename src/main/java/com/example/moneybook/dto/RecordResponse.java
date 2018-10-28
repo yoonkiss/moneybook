@@ -10,9 +10,11 @@ import lombok.Data;
 public class RecordResponse {
     private String userId;
 
+    private int type;
+
     private String description;
 
-    private int billingType;
+    private int account;
 
     private CreditCard card;
 
@@ -30,7 +32,8 @@ public class RecordResponse {
     public RecordResponse(Record record) {
         this.userId = record.getUserId();
         this.description = record.getDescription();
-        this.billingType = record.getBillingType();
+        this.type = record.getType();
+        this.account = record.getAccount();
         this.amount = record.getAmount();
         this.divided = record.getDivided();
         this.comments = record.getComments();

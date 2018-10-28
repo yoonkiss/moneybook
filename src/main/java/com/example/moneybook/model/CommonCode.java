@@ -28,7 +28,7 @@ public class CommonCode {
 
     private int sorting;
     
-    private int parent_id;
+    private int parentId;
 
     @Column(name = "created_at", insertable = false)
     @Temporal(TemporalType.TIMESTAMP)
